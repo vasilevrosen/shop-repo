@@ -205,6 +205,7 @@ public final class Mock {
 	}
 
 	public static void updateArtikel(Artikel artikel) {
+		
 		final long id = artikel.getBezeichnung().length();
 		artikel.setId(id);
 		LOGGER.infof("(LOGGER) Aktualisierter Artikel: " + artikel);

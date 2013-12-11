@@ -3,6 +3,7 @@ package de.shop.artikelverwaltung.domain;
 import java.io.Serializable;
 import java.net.URI;
 
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -13,7 +14,7 @@ public class Artikel implements Serializable {
 	private Long id;
 	
 	@Size(min = 2, max = 25, message = "{artikel.laenge.name}")
-	//@Pattern(regexp = "[\\w]", message = "{artikel.invalid.name}")
+	@Pattern(regexp = "[\\w]", message = "{artikel.invalid.name}")
 	private String bezeichnung;
 	
 	private URI artikelUri;
