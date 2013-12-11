@@ -56,21 +56,17 @@ public class BestellungResource {
 	
 	@Inject
 	private ArtikelResource ar;
-//	
-//	@Inject
-//	private ArtikelService as;
 	
 	@GET
 	@Path("{id:[1-9][0-9]*}")
 	public Response findBestellungById(@PathParam("id") Long id) {
-
-		final Bestellung bestellung = bs.findBestellungById(id);		
-		setStructuralLinks(bestellung, uriInfo);
 		
+		final Bestellung bestellung = bs.findBestellungById(id);
+		setStructuralLinks(bestellung, uriInfo);
 		// Link-Header setzen
 		final Response response = Response.ok(bestellung)
                                           .links(getTransitionalLinks(bestellung, uriInfo))
-                                          .build();		
+                                          .build();
 		return response;
 	}
 	
@@ -127,7 +123,8 @@ public class BestellungResource {
 	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
 	public Response createBestellung(Bestellung bestellung) {
-		AbstractKunde kunde = bestellung.getKunde();
+		final AbstractKunde kunde = bestellung.getKunde();
+		bestellung.setId((long)kunde.getNachname().length());
 		bestellung = bsi.createBestellung(bestellung, kunde);
 		return Response.created(getUriBestellung(bestellung, uriInfo))
 			           .build();

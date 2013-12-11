@@ -10,6 +10,6 @@ public abstract class AbstractShopException extends RuntimeException {
 	public AbstractShopException(String msg, Throwable t) {
 		super(msg, t);
 	}
-
+	
 	public abstract String getMessageKey();
 }

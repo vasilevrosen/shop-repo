@@ -147,8 +147,7 @@ public final class Mock {
 	public static Bestellung findBestellungById(Long id) {
 		if (id > MAX_ID) {
 			return null;
-		}
-		
+		}		
 		final AbstractKunde kunde = findKundeById(id);  // andere ID fuer den Kunden
 		final List<Posten> posten = findPostenByBestellung(id);	
 		final Bestellung bestellung = new Bestellung();
@@ -171,16 +170,16 @@ public final class Mock {
 		adresse.setKunde(kunde);
 		kunde.setBestellungen(null);
 		
-		LOGGER.infof("Neuer Kunde: %s", kunde);
+		LOGGER.infof("(LOGGER) Neuer Kunde: %s", kunde);
 		return kunde;
 	}
 
 	public static void updateKunde(AbstractKunde kunde) {
-		LOGGER.infof("Aktualisierter Kunde: %s", kunde);
+		LOGGER.infof("(LOGGER) Aktualisierter Kunde: %s", kunde);
 	}
 
 	public static void deleteKunde(Long kundeId) {
-		LOGGER.infof("Kunde mit ID=" + kundeId + " geloescht");
+		LOGGER.infof("(LOGGER) Kunde mit ID=" + kundeId + " geloescht");
 	}
 	
 	public static Artikel findArtikelById(Long id) {
@@ -191,8 +190,8 @@ public final class Mock {
 
         final Artikel artikel = new Artikel();
         artikel.setId(id);
-        artikel.setBezeichnung("Artikel" + id.toString());
-        artikel.setPrice((long) artikel.getBezeichnung().length() * 2);
+        artikel.setBezeichnung("Artikel_" + id.toString());
+        artikel.setPrice(artikel.getBezeichnung().length() * 2);
         
         return artikel;
 	}
@@ -201,30 +200,30 @@ public final class Mock {
 		
 		final long id = artikel.getBezeichnung().length();
 		artikel.setId(id);
-		LOGGER.infof("Neuer Artikel: %s", artikel);        
+		LOGGER.infof("(LOGGER) Neuer Artikel: %s", artikel);        
         return artikel;
 	}
 
 	public static void updateArtikel(Artikel artikel) {
 		final long id = artikel.getBezeichnung().length();
 		artikel.setId(id);
-		LOGGER.infof("Aktualisierter Artikel: " + artikel);
+		LOGGER.infof("(LOGGER) Aktualisierter Artikel: " + artikel);
 	}
 		
 	public static void updateBestellung(Bestellung bestellung) {
 		final long id = 5;
 		bestellung.setId(id);
 		bestellung = findBestellungById(id);
-		LOGGER.infof("Aktualisierte Bestellung: " + bestellung);
+		LOGGER.infof("(LOGGER) Aktualisierte Bestellung: " + bestellung);
 	}
 
 	public static void deleteKunde(AbstractKunde kunde) {
-		LOGGER.infof("Geloeschter Kunde: %s", kunde);
+		LOGGER.infof("(LOGGER) Geloeschter Kunde: %s", kunde);
 	}
 
 	public static Bestellung createBestellung(Bestellung bestellung, AbstractKunde kunde) {
 		bestellung.setId(kunde.getId());
-		LOGGER.infof("Neue Bestellung: %s fuer Kunde: %s", bestellung, kunde);
+		LOGGER.infof("(LOGGER) Neue Bestellung: %s fuer Kunde: %s", bestellung, kunde);
 		return bestellung;
 	}
 

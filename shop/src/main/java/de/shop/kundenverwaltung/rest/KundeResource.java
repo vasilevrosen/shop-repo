@@ -80,7 +80,7 @@ public class KundeResource {
 	@GET
 	@Path("{" + KUNDEN_ID_PATH_PARAM + ":[1-9][0-9]*}")
 	public Response findKundeById(@PathParam(KUNDEN_ID_PATH_PARAM) Long id) {
-		final AbstractKunde kunde = ks.findKundeById(id);
+		final AbstractKunde kunde = KundeService.findKundeById(id);
 		setStructuralLinks(kunde, uriInfo);
 		return Response.ok(kunde)
 			           .links(getTransitionalLinks(kunde, uriInfo))
@@ -196,7 +196,7 @@ public class KundeResource {
 	@GET
 	@Path("{id:[1-9][0-9]*}/bestellungen")
 	public Response findBestellungenByKundeId(@PathParam("id") Long kundeId) {
-		final AbstractKunde kunde = ks.findKundeById(kundeId);
+		final AbstractKunde kunde = KundeService.findKundeById(kundeId);
 		final List<Bestellung> bestellungen = bs.findBestellungenByKunde(kunde);
 		// URIs innerhalb der gefundenen Bestellungen anpassen
 		if (bestellungen != null) {

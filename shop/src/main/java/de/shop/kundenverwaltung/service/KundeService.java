@@ -17,7 +17,7 @@ public class KundeService implements Serializable {
 	private static final long serialVersionUID = 3188789767052580247L;
 
 	@NotNull(message = "{kunde.notFound.id}")
-	public AbstractKunde findKundeById(Long id) {
+	public static AbstractKunde findKundeById(Long id) {
 		if (id == null) {
 			return null;
 		}

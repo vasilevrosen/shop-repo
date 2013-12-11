@@ -28,5 +28,4 @@ public class ShopExceptionMapper implements ExceptionMapper<AbstractShopExceptio
 		                                  .build();
 		return response;
 	}
-
 }
