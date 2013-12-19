@@ -16,6 +16,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
@@ -34,6 +35,7 @@ public class ArtikelResource {
 	@Inject
 	private ArtikelService as;
 	
+	@Context
 	private UriInfo uriInfo;
 	
 	@Inject
@@ -41,7 +43,7 @@ public class ArtikelResource {
 	
 	@GET
 	@Path("{id:[1-9][0-9]*}")
-	  public Response findArtikelById(@PathParam("id") Long id, UriInfo uriInfo) {
+	  public Response findArtikelById(@PathParam("id") Long id, @Context UriInfo uriInfo) {
         
         final Artikel artikel = as.findArtikelById(id);        
         setStructuralLinks(artikel, uriInfo);
