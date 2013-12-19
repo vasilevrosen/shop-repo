@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import org.jboss.logging.Logger;
 
 import de.shop.bestellverwaltung.domain.Bestellung;
-import de.shop.kundenverwaltung.domain.AbstractKunde;
+import de.shop.kundenverwaltung.domain.Kunde;
 import de.shop.util.interceptor.Log;
 import de.shop.util.mail.AbsenderMail;
 import de.shop.util.mail.AbsenderName;
@@ -42,7 +42,7 @@ public class BestellungObserver implements Serializable {
 	}
 	
 	public void onCreateBestellung(@Observes @NeueBestellung Bestellung bestellung) {
-		final AbstractKunde kunde = bestellung.getKunde();
+		final Kunde kunde = bestellung.getKunde();
 		final String empfaengerMail = kunde.getEmail();
 		if (absenderMail == null || empfaengerMail == null) {
 			return;

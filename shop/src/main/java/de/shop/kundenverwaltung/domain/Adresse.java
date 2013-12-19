@@ -25,7 +25,7 @@ public class Adresse implements Serializable {
 	
 	//NICHT @NotNull, weil beim Anlegen ueber REST der Rueckwaertsverweis noch nicht existiert
 	@XmlTransient
-	private AbstractKunde kunde;
+	private Kunde kunde;
 	
 	public Long getId() {
 		return id;
@@ -46,10 +46,10 @@ public class Adresse implements Serializable {
 		this.ort = ort;
 	}
 	
-	public AbstractKunde getKunde() {
+	public Kunde getKunde() {
 		return kunde;
 	}
-	public void setKunde(AbstractKunde kunde) {
+	public void setKunde(Kunde kunde) {
 		this.kunde = kunde;
 	}
 	@Override

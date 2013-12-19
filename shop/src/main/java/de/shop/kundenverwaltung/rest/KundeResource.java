@@ -39,7 +39,7 @@ import org.hibernate.validator.constraints.Email;
 import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.bestellverwaltung.rest.BestellungResource;
 import de.shop.bestellverwaltung.service.BestellungService;
-import de.shop.kundenverwaltung.domain.AbstractKunde;
+import de.shop.kundenverwaltung.domain.Kunde;
 import de.shop.kundenverwaltung.service.KundeService;
 import de.shop.util.interceptor.Log;
 import de.shop.util.rest.UriHelper;
@@ -80,24 +80,24 @@ public class KundeResource {
 	@GET
 	@Path("{" + KUNDEN_ID_PATH_PARAM + ":[1-9][0-9]*}")
 	public Response findKundeById(@PathParam(KUNDEN_ID_PATH_PARAM) Long id) {
-		final AbstractKunde kunde = KundeService.findKundeById(id);
+		final Kunde kunde = KundeService.findKundeById(id);
 		setStructuralLinks(kunde, uriInfo);
 		return Response.ok(kunde)
 			           .links(getTransitionalLinks(kunde, uriInfo))
 			           .build();
 	}
 	
-	public void setStructuralLinks(AbstractKunde kunde, UriInfo uriInfo) {
+	public void setStructuralLinks(Kunde kunde, UriInfo uriInfo) {
 		// URI fuer Bestellungen setzen
 		final URI uri = getUriBestellungen(kunde, uriInfo);
 		kunde.setBestellungenUri(uri);
 	}
 	
-	private URI getUriBestellungen(AbstractKunde kunde, UriInfo uriInfo) {
+	private URI getUriBestellungen(Kunde kunde, UriInfo uriInfo) {
 		return uriHelper.getUri(KundeResource.class, "findBestellungenByKundeId", kunde.getId(), uriInfo);
 	}
 	
-	private Link[] getTransitionalLinks(AbstractKunde kunde, UriInfo uriInfo) {
+	private Link[] getTransitionalLinks(Kunde kunde, UriInfo uriInfo) {
 		final Link self = Link.fromUri(getUriKunde(kunde, uriInfo))
 	                          .rel(SELF_LINK)
 	                          .build();
@@ -123,13 +123,13 @@ public class KundeResource {
 	}
 
 	
-	public URI getUriKunde(AbstractKunde kunde, UriInfo uriInfo) {
+	public URI getUriKunde(Kunde kunde, UriInfo uriInfo) {
 		return uriHelper.getUri(KundeResource.class, "findKundeById", kunde.getId(), uriInfo);
 	}
 	
 	@GET
 	public Response findKunden(@QueryParam(KUNDEN_NACHNAME_QUERY_PARAM)
-   	                           @Pattern(regexp = AbstractKunde.NACHNAME_PATTERN, 
+   	                           @Pattern(regexp = Kunde.NACHNAME_PATTERN, 
    	                           message = "{kunde.nachname.pattern}")
 							   String nachname,
 							   @QueryParam(KUNDEN_EMAIL_QUERY_PARAM)
@@ -138,8 +138,8 @@ public class KundeResource {
 							   @QueryParam(KUNDEN_PLZ_QUERY_PARAM)
    	                           @Pattern(regexp = "\\d{5}", message = "{adresse.plz}")
 							   String plz) {
-		List<? extends AbstractKunde> kunden = null;
-		AbstractKunde kunde = null;
+		List<Kunde> kunden = null;
+		Kunde kunde = null;
 		if (nachname != null) {
 			kunden = ks.findKundenByNachname(nachname);
 		}
@@ -157,14 +157,14 @@ public class KundeResource {
 		Object entity = null;
 		Link[] links = null;
 		if (kunden != null) {
-			for (AbstractKunde k : kunden) {
+			for (Kunde k : kunden) {
 				setStructuralLinks(k, uriInfo);
 			}
 			// FIXME JDK 8 hat Lambda-Ausdruecke, aber Proxy-Klassen von Weld 
 			//funktionieren noch nicht mit Lambda-Ausdruecken
 			//kunden.parallelStream()
 			//      .forEach(k -> setStructuralLinks(k, uriInfo));
-			entity = new GenericEntity<List<? extends AbstractKunde>>(kunden) {};
+			entity = new GenericEntity<List<? extends Kunde>>(kunden) {};
 			links = getTransitionalLinksKunden(kunden, uriInfo);
 		}
 		else if (kunde != null) {
@@ -177,7 +177,7 @@ public class KundeResource {
                        .build();
 	}
 	
-	private Link[] getTransitionalLinksKunden(List<? extends AbstractKunde> kunden, UriInfo uriInfo) {
+	private Link[] getTransitionalLinksKunden(List<? extends Kunde> kunden, UriInfo uriInfo) {
 		if (kunden == null || kunden.isEmpty()) {
 			return null;
 		}
@@ -196,7 +196,7 @@ public class KundeResource {
 	@GET
 	@Path("{id:[1-9][0-9]*}/bestellungen")
 	public Response findBestellungenByKundeId(@PathParam("id") Long kundeId) {
-		final AbstractKunde kunde = KundeService.findKundeById(kundeId);
+		final Kunde kunde = KundeService.findKundeById(kundeId);
 		final List<Bestellung> bestellungen = bs.findBestellungenByKunde(kunde);
 		// URIs innerhalb der gefundenen Bestellungen anpassen
 		if (bestellungen != null) {
@@ -213,7 +213,7 @@ public class KundeResource {
                        .build();
 	}
 	
-	private Link[] getTransitionalLinksBestellungen(List<Bestellung> bestellungen, AbstractKunde kunde,
+	private Link[] getTransitionalLinksBestellungen(List<Bestellung> bestellungen, Kunde kunde,
 	                                                UriInfo uriInfo) {
 		if (bestellungen == null || bestellungen.isEmpty()) {
 			return new Link[0];
@@ -238,7 +238,7 @@ public class KundeResource {
 	@POST
 	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
-	public Response createKunde(@Valid AbstractKunde kunde) {
+	public Response createKunde(@Valid Kunde kunde) {
 		// Rueckwaertsverweis von Adresse zu Kunde setzen
 		kunde.getAdresse().setKunde(kunde);
 		kunde = ks.createKunde(kunde);
@@ -250,7 +250,7 @@ public class KundeResource {
 	@PUT
 	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
-	public void updateKunde(@Valid AbstractKunde kunde) {
+	public void updateKunde(@Valid Kunde kunde) {
 		ks.updateKunde(kunde);
 	}
 	

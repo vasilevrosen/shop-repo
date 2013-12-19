@@ -7,7 +7,7 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import de.shop.kundenverwaltung.domain.AbstractKunde;
+import de.shop.kundenverwaltung.domain.Kunde;
 
 @XmlRootElement
 public class Bestellung implements Serializable {
@@ -19,7 +19,7 @@ private static final long serialVersionUID = 1618359234119003714L;
 	
 	private boolean ausgeliefert;	
 
-	private AbstractKunde kunde;
+	private Kunde kunde;
 	
 	private List<Posten> posten;
 	
@@ -41,11 +41,11 @@ private static final long serialVersionUID = 1618359234119003714L;
 		this.ausgeliefert = ausgeliefert;
 	}
 
-	public AbstractKunde getKunde() {
+	public Kunde getKunde() {
 		return kunde;
 	}
 
-	public void setKunde(AbstractKunde kunde) {
+	public void setKunde(Kunde kunde) {
 		this.kunde = kunde;
 	}
 

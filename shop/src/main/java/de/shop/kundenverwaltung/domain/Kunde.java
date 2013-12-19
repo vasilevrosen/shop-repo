@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.net.URI;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -11,27 +12,18 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.codehaus.jackson.annotate.JsonSubTypes;
-import org.codehaus.jackson.annotate.JsonSubTypes.Type;
 import org.codehaus.jackson.annotate.JsonTypeInfo;
 import org.hibernate.validator.constraints.Email;
 
 import de.shop.bestellverwaltung.domain.Bestellung;
 
 @XmlRootElement
-@XmlSeeAlso({ Firmenkunde.class, Privatkunde.class })
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-@JsonSubTypes({
-	@Type(value = Privatkunde.class, name = AbstractKunde.PRIVATKUNDE),
-	@Type(value = Firmenkunde.class, name = AbstractKunde.FIRMENKUNDE) })
-public abstract class AbstractKunde implements Serializable {
+
+public class Kunde implements Serializable {
 	private static final long serialVersionUID = 7401524595142572933L;
-	
-	public static final String PRIVATKUNDE = "P";
-	public static final String FIRMENKUNDE = "F";
 	
 	//Pattern mit UTF-8 (statt Latin-1 bzw. ISO-8859-1) Schreibweise fuer Umlaute:
 	private static final String NAME_PATTERN = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+";
@@ -66,6 +58,15 @@ public abstract class AbstractKunde implements Serializable {
 	private List<Bestellung> bestellungen;
 	
 	private URI bestellungenUri;
+	
+	private Set<HobbyType> hobbies;
+
+	public Set<HobbyType> getHobbies() {
+		return hobbies;
+	}
+	public void setHobbies(Set<HobbyType> hobbies) {
+		this.hobbies = hobbies;
+	}
 	
 	public Long getId() {
 		return id;
@@ -126,7 +127,7 @@ public abstract class AbstractKunde implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AbstractKunde other = (AbstractKunde) obj;
+		Kunde other = (Kunde) obj;
 		if (email == null) {
 			if (other.email != null)
 				return false;
@@ -138,7 +139,7 @@ public abstract class AbstractKunde implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "AbstractKunde [id=" + id + ", nachname=" + nachname + ", email=" + email + ", seit=" + seit
+		return "Kunde [id=" + id + ", nachname=" + nachname + ", email=" + email + ", seit=" + seit
 			   + ", bestellungenUri=" + bestellungenUri + "]";
 	}
 }

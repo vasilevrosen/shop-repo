@@ -2,7 +2,7 @@ package de.shop.kundenverwaltung.service;
 
 import javax.ejb.ApplicationException;
 
-import de.shop.kundenverwaltung.domain.AbstractKunde;
+import de.shop.kundenverwaltung.domain.Kunde;
 
 
 /**
@@ -16,7 +16,7 @@ public class KundeDeleteBestellungException extends AbstractKundeServiceExceptio
 	private final Long kundeId;
 	private final int anzahlBestellungen;
 	
-	public KundeDeleteBestellungException(AbstractKunde kunde) {
+	public KundeDeleteBestellungException(Kunde kunde) {
 		super("Kunde mit ID=" + kunde.getId() + " kann nicht geloescht werden: "
 			  + kunde.getBestellungen().size() + " Bestellung(en)");
 		this.kundeId = kunde.getId();

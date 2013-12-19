@@ -27,7 +27,7 @@ import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.bestellverwaltung.domain.Posten;
 import de.shop.bestellverwaltung.service.BestellungService;
 import de.shop.bestellverwaltung.service.BestellungServiceImpl;
-import de.shop.kundenverwaltung.domain.AbstractKunde;
+import de.shop.kundenverwaltung.domain.Kunde;
 import de.shop.kundenverwaltung.rest.KundeResource;
 import de.shop.util.interceptor.Log;
 import de.shop.util.rest.UriHelper;
@@ -72,7 +72,7 @@ public class BestellungResource {
 	
 	public void setStructuralLinks(Bestellung bestellung, UriInfo uriInfo) {
 		// URI fuer Kunde setzen
-		final AbstractKunde kunde = bestellung.getKunde();
+		final Kunde kunde = bestellung.getKunde();
 		final List<Posten> posten = bestellung.getPosten();
 		if (kunde != null) {
 			final URI kundeUri = kr.getUriKunde(bestellung.getKunde(), uriInfo);
@@ -123,7 +123,7 @@ public class BestellungResource {
 	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
 	public Response createBestellung(Bestellung bestellung) {
-		final AbstractKunde kunde = bestellung.getKunde();
+		final Kunde kunde = bestellung.getKunde();
 		bestellung.setId((long)kunde.getNachname().length());
 		bestellung = bsi.createBestellung(bestellung, kunde);
 		return Response.created(getUriBestellung(bestellung, uriInfo))
