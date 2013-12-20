@@ -2,27 +2,66 @@ package de.shop.bestellverwaltung.domain;
 
 import java.io.Serializable;
 import java.net.URI;
+import java.util.Collections;
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
+import javax.persistence.Basic;
+import javax.persistence.Cacheable;
+import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.Valid;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import de.shop.kundenverwaltung.domain.Kunde;
 
+import static de.shop.util.Constants.KEINE_ID;
+
 @XmlRootElement
+@Entity
+@Table(indexes = {
+		@Index(columnList = "kunde_fk"),
+		@Index(columnList = "erzeugt")
+})
+
+//TODO @NamedQueries
+
+//TODO @NamedEntityGraphs
+
+@Cacheable
 public class Bestellung implements Serializable {
 	
 private static final long serialVersionUID = 1618359234119003714L;
 	
-	@NotNull
-	private Long id;
+	@Id
+	@GeneratedValue
+	@Basic(optional = false)
+	private Long id = KEINE_ID;
 	
 	private boolean ausgeliefert;	
 
+	@ManyToOne
+	@JoinColumn(name = "kunde_fk", nullable = false, 
+		insertable = false, updatable = false)
+	@XmlTransient
 	private Kunde kunde;
 	
+	@OneToMany
+	@JoinColumn(name = "bestellung_fk", nullable = false)
+	@NotEmpty(message = "{bestellung.posten.notEmpty}")
+	@Valid
 	private List<Posten> posten;
 	
+	@Transient
 	private URI kundeUri;
 
 	public Long getId() {
@@ -50,11 +89,20 @@ private static final long serialVersionUID = 1618359234119003714L;
 	}
 
 	public List<Posten> getPosten() {
-		return posten;
+		return Collections.unmodifiableList(posten);
 	}
 
+	@OneToMany
+	@JoinColumn(name = "bestellung_fk", nullable = false)
 	public void setPosten(List<Posten> posten) {
-		this.posten = posten;
+		if (this.posten == null) {
+			this.posten = posten;
+			return;
+		}
+		this.posten.clear();
+		if (posten != null) {
+			this.posten.addAll(posten);
+		}
 	}
 
 	public URI getKundeUri() {

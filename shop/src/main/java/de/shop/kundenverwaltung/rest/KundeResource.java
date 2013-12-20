@@ -129,7 +129,7 @@ public class KundeResource {
 	
 	@GET
 	public Response findKunden(@QueryParam(KUNDEN_NACHNAME_QUERY_PARAM)
-   	                           @Pattern(regexp = Kunde.NACHNAME_PATTERN, 
+   	                           @Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+", 
    	                           message = "{kunde.nachname.pattern}")
 							   String nachname,
 							   @QueryParam(KUNDEN_EMAIL_QUERY_PARAM)

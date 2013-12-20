@@ -25,11 +25,6 @@ import de.shop.bestellverwaltung.domain.Bestellung;
 public class Kunde implements Serializable {
 	private static final long serialVersionUID = 7401524595142572933L;
 	
-	//Pattern mit UTF-8 (statt Latin-1 bzw. ISO-8859-1) Schreibweise fuer Umlaute:
-	private static final String NAME_PATTERN = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+";
-	private static final String NACHNAME_PREFIX = "(o'|von|von der|von und zu|van)?";
-	
-	public static final String NACHNAME_PATTERN = NACHNAME_PREFIX + NAME_PATTERN + "(-" + NAME_PATTERN + ")?";
 	private static final int NACHNAME_LENGTH_MIN = 2;
 	private static final int NACHNAME_LENGTH_MAX = 32;
 	private static final int EMAIL_LENGTH_MAX = 128;
@@ -39,7 +34,7 @@ public class Kunde implements Serializable {
 	@NotNull(message = "{kunde.nachname.notNull}")
 	@Size(min = NACHNAME_LENGTH_MIN, max = NACHNAME_LENGTH_MAX,
 	      message = "{kunde.nachname.length}")
-	@Pattern(regexp = NACHNAME_PATTERN, message = "{kunde.nachname.pattern}")
+	@Pattern(regexp = "[A-Z\u00C4\u00D6\u00DC][a-z\u00E4\u00F6\u00FC\u00DF]+", message = "{kunde.nachname.pattern}")
 	private String nachname;
 	
 	@Email(message = "{kunde.email.pattern}")
