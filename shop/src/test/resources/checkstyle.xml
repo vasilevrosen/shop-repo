@@ -3,8 +3,10 @@
     "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
     "http://users.tpg.com.au/ojburn/dtds/configuration_1_3.dtd">
 
-<!-- Das ist eine abgespeckte und vereinfachte Variante der Programmierrichtlinien 
-	von Sun gemaess: http://central.maven.org/maven2/org/apache/maven/plugins/maven-checkstyle-plugin/2.10/maven-checkstyle-plugin-2.10.jar#config/sun_checks.xml -->
+<!--
+	Das ist eine abgespeckte und vereinfachte Variante der Programmierrichtlinien 
+	von Sun gemaess: http://central.maven.org/maven2/org/apache/maven/plugins/maven-checkstyle-plugin/2.10/maven-checkstyle-plugin-2.10.jar#config/sun_checks.xml
+-->
 
 <module name="Checker">
 	<!-- http://checkstyle.sourceforge.net/config_misc.html -->
@@ -13,7 +15,7 @@
 
 	<!-- http://checkstyle.sourceforge.net/config_sizes.html -->
 	<module name="FileLength" />
-
+		
 	<module name="TreeWalker">
 		<property name="cacheFile" value="${checkstyle.cache.file}" />
 
@@ -52,7 +54,7 @@
 		</module>
 		<module name="MethodLength" />
 		<module name="ParameterNumber" />
-
+		
 		<!-- http://checkstyle.sourceforge.net/config_whitespace.html -->
 		<module name="EmptyForInitializerPad" />
 		<module name="EmptyForIteratorPad" />
@@ -74,16 +76,16 @@
 		<module name="AvoidNestedBlocks" />
 		<module name="EmptyBlock" />
 		<module name="LeftCurly">
-			<!-- Falls die oeffnende Klammer in einer neuen Zeile (nl = new line) 
-				stehen soll -->
-			<!-- <property name="option" value="nl"/> -->
+			<!-- Falls die oeffnende Klammer in einer neuen Zeile (nl = new line) stehen soll -->
+			<!--
+			<property name="option" value="nl"/>
+			-->
 		</module>
 		<module name="NeedBraces">
 			<property name="tokens" value="LITERAL_DO, LITERAL_FOR, LITERAL_WHILE" />
 		</module>
 		<module name="RightCurly">
-			<!-- Schliessende Klammer in einer eigenen Zeile bei: try, catch, finally, 
-				if, else -->
+			<!-- Schliessende Klammer in einer eigenen Zeile bei: try, catch, finally, if, else -->
 			<!-- d.h. NICHT: } catch (...) { -->
 			<property name="option" value="alone" />
 			<property name="tokens"
@@ -96,7 +98,7 @@
 		<module name="MissingOverride" />
 		<module name="PackageAnnotation" />
 		<module name="SuppressWarnings" />
-
+		
 		<!-- http://checkstyle.sourceforge.net/config_coding.html -->
 		<module name="CovariantEquals" />
 		<module name="DefaultComesLast" />
@@ -106,7 +108,7 @@
 		<module name="EmptyStatement" />
 		<module name="EqualsHashCode" />
 		<module name="HiddenField">
-			<property name="tokens" value="VARIABLE_DEF" />
+		    <property name="tokens" value="VARIABLE_DEF" />
 			<property name="ignoreConstructorParameter" value="true" />
 			<property name="ignoreSetter" value="true" />
 		</module>
@@ -150,7 +152,7 @@
 		<module name="OuterTypeFilename" />
 		<module name="TodoComment" />
 		<module name="UncommentedMain">
-			<property name="excludedClasses" value="\.AuthService$" />
+    		<property name="excludedClasses" value="\.AuthService$" />
 		</module>
 		<module name="UpperEll" />
 	</module>

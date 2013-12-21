@@ -28,10 +28,7 @@ import static de.shop.util.Constants.KEINE_ID;
 
 @XmlRootElement
 @Entity
-@Table(indexes = {
-		@Index(columnList = "kunde_fk"),
-		@Index(columnList = "erzeugt")
-})
+@Table(indexes = {@Index(columnList = "kunde_fk"), @Index(columnList = "erzeugt")})
 
 //TODO @NamedQueries
 
