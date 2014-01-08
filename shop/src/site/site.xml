@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+
 <project>
 	<skin>
 		<groupId>org.apache.maven.skins</groupId>
@@ -24,12 +25,12 @@
 
 	<body>
 		<menu name="Shop">
-			<item name="Startseite" href="index.html" />
-			<item name="Zusammenfassung" href="project-summary.html" />
-			<item name="&#220;bersicht" href="project-info.html" />
-			<item name="Abh&#228;ngigkeiten" href="dependencies.html" />
-			<item name="Berichte" href="project-reports.html" />
-			<item name="Projektteam" href="team-list.html" />
+			<item name="Startseite" href="index.html"/>
+			<item name="Zusammenfassung" href="project-summary.html"/>
+			<item name="&#220;bersicht" href="project-info.html"/>
+			<item name="Abh&#228;ngigkeiten" href="dependencies.html"/>
+			<item name="Berichte" href="project-reports.html"/>
+			<item name="Projektteam" href="team-list.html"/>
 		</menu>
 	</body>
 </project>

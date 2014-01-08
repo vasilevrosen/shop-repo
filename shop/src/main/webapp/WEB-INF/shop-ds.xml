@@ -1,7 +1,7 @@
-<?xml version="1.0" ?>
-<datasources xmlns="http://www.jboss.org/ironjacamar/schema" 
+<?xml version="1.0"?>
+<datasources xmlns="http://www.jboss.org/ironjacamar/schema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://docs.jboss.org/ironjacamar/schema/datasources_1_0.xsd">
+    xsi:schemaLocation="http://docs.jboss.org/ironjacamar/schema/datasources_1_0.xsd http://www.jboss.org/ironjacamar/schema">
 	<datasource jndi-name="java:jboss/datasources/shopDS" pool-name="shop" enabled="true">
 		<connection-url>jdbc:oracle:thin:@localhost:1521:XE</connection-url>
 		<driver-class>oracle.jdbc.OracleDriver</driver-class>

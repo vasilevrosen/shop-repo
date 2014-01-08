@@ -21,6 +21,7 @@ import de.shop.util.interceptor.Log;
 
 /**
  * Bei @QueryParam oder @PathParam z.B. "2001-10-31" statt Default-Format "31 Oct 2001"
+ * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
  *
  */
 @Provider

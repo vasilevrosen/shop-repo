@@ -5,7 +5,6 @@ import static javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR;
 import java.lang.invoke.MethodHandles;
 
 import javax.enterprise.context.ApplicationScoped;
-
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
@@ -15,6 +14,10 @@ import org.jboss.logging.Logger;
 import de.shop.util.AbstractShopException;
 import de.shop.util.interceptor.Log;
 
+
+/**
+ * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
+ */
 @Provider
 @ApplicationScoped
 @Log
@@ -28,4 +31,5 @@ public class ShopExceptionMapper implements ExceptionMapper<AbstractShopExceptio
 		                                  .build();
 		return response;
 	}
+
 }

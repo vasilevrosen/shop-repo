@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <ruleset name="Custom ruleset" xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
 
 	<description>
 		Anpassungen von PMD Rulesets
@@ -9,17 +9,17 @@
 	</description>
 
 	<rule ref="rulesets/java/basic.xml">
-	    <exclude name="AvoidBranchingStatementAsLastInLoop" />
+	    <exclude name="AvoidBranchingStatementAsLastInLoop"/>
 	</rule>
-	<rule ref="rulesets/java/unusedcode.xml" />
-	<rule ref="rulesets/java/strings.xml" />
+	<rule ref="rulesets/java/unusedcode.xml"/>
+	<rule ref="rulesets/java/strings.xml"/>
 	<rule ref="rulesets/java/braces.xml">
-		<exclude name="IfStmtsMustUseBraces" />
-		<exclude name="IfElseStmtsMustUseBraces" />
+		<exclude name="IfStmtsMustUseBraces"/>
+		<exclude name="IfElseStmtsMustUseBraces"/>
 	</rule>
 	
 	<rule ref="rulesets/java/imports.xml">
-		<exclude name="TooManyStaticImports" />
+		<exclude name="TooManyStaticImports"/>
 	</rule>
 	<rule ref="rulesets/java/imports.xml/TooManyStaticImports">
 		<properties>
@@ -29,31 +29,31 @@
 	</rule>
 	
 	<rule ref="rulesets/java/naming.xml">
-		<exclude name="ShortVariable" />
-		<exclude name="LongVariable" />
+		<exclude name="ShortVariable"/>
+		<exclude name="LongVariable"/>
 	</rule>
 	
 	<rule ref="rulesets/java/logging-java.xml">
-		<exclude name="MoreThanOneLogger" />
+		<exclude name="MoreThanOneLogger"/>
 	</rule>
 	
 	<rule ref="rulesets/java/design.xml">
-		<exclude name="AbstractClassWithoutAbstractMethod" />
-	    <exclude name="AvoidReassigningParameters" />
-		<exclude name="FieldDeclarationsShouldBeAtStartOfClass" />
-		<exclude name="GodClass" />
-		<exclude name="MissingStaticMethodInNonInstantiatableClass" />
-		<exclude name="UnnecessaryLocalBeforeReturn" />
+		<exclude name="AbstractClassWithoutAbstractMethod"/>
+	    <exclude name="AvoidReassigningParameters"/>
+		<exclude name="FieldDeclarationsShouldBeAtStartOfClass"/>
+		<exclude name="GodClass"/>
+		<exclude name="MissingStaticMethodInNonInstantiatableClass"/>
+		<exclude name="UnnecessaryLocalBeforeReturn"/>
 	</rule>
 	
 	<rule ref="rulesets/java/controversial.xml">
-		<exclude name="NullAssignment" />
-		<exclude name="OnlyOneReturn" />
-		<exclude name="DataflowAnomalyAnalysis" />
-		<exclude name="AtLeastOneConstructor" />
-		<exclude name="AvoidFinalLocalVariable" />
-		<exclude name="AvoidUsingShortType" />
-		<exclude name="AvoidLiteralsInIfCondition" />
-		<exclude name="UseConcurrentHashMap" />
+		<exclude name="NullAssignment"/>
+		<exclude name="OnlyOneReturn"/>
+		<exclude name="DataflowAnomalyAnalysis"/>
+		<exclude name="AtLeastOneConstructor"/>
+		<exclude name="AvoidFinalLocalVariable"/>
+		<exclude name="AvoidUsingShortType"/>
+		<exclude name="AvoidLiteralsInIfCondition"/>
+		<exclude name="UseConcurrentHashMap"/>
 	</rule>
 </ruleset>

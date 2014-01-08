@@ -1,14 +1,12 @@
 package de.shop.kundenverwaltung.service;
 
-import javax.ejb.ApplicationException;
-
-import de.shop.kundenverwaltung.domain.Kunde;
+import de.shop.kundenverwaltung.domain.AbstractKunde;
 
 
 /**
  * Exception, die ausgel&ouml;st wird, wenn ein Kunde gel&ouml;scht werden soll, aber mindestens eine Bestellung hat
+ * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
  */
-@ApplicationException(rollback = true)
 public class KundeDeleteBestellungException extends AbstractKundeServiceException {
 	private static final long serialVersionUID = 2237194289969083093L;
 	
@@ -16,7 +14,7 @@ public class KundeDeleteBestellungException extends AbstractKundeServiceExceptio
 	private final Long kundeId;
 	private final int anzahlBestellungen;
 	
-	public KundeDeleteBestellungException(Kunde kunde) {
+	public KundeDeleteBestellungException(AbstractKunde kunde) {
 		super("Kunde mit ID=" + kunde.getId() + " kann nicht geloescht werden: "
 			  + kunde.getBestellungen().size() + " Bestellung(en)");
 		this.kundeId = kunde.getId();

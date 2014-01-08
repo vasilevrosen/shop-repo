@@ -14,6 +14,9 @@ import javax.ws.rs.ext.Provider;
 
 import org.jboss.logging.Logger;
 
+/**
+ * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
+ */
 @Provider
 @ApplicationScoped
 public class JaxRsLogFilter implements ContainerRequestFilter, ContainerResponseFilter {
@@ -42,6 +45,6 @@ public class JaxRsLogFilter implements ContainerRequestFilter, ContainerResponse
 	@Override
 	public void filter(ContainerRequestContext requestCtx, ContainerResponseContext responseCtx) throws IOException {
 		LOGGER.debugf("Status Info: %d %s", responseCtx.getStatus(), responseCtx.getStatusInfo());
-		LOGGER.debugf("Location: %s", responseCtx.getLocation());
+		LOGGER.debugf("Location: %s", responseCtx.getLocation());		
 	}
 }
