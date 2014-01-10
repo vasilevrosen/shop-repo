@@ -24,9 +24,6 @@ import com.google.common.base.Splitter;
 
 import de.shop.util.interceptor.Log;
 
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
 @ApplicationScoped
 @Log
 public class Messages {

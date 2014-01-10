@@ -34,10 +34,6 @@ import de.shop.kundenverwaltung.domain.Adresse_;
 import de.shop.kundenverwaltung.domain.Wartungsvertrag;
 import de.shop.util.interceptor.Log;
 
-
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
 @Dependent
 @Log
 public class KundeService implements Serializable {

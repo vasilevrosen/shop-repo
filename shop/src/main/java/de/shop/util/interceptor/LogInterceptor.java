@@ -13,13 +13,6 @@ import javax.interceptor.InvocationContext;
 
 import org.jboss.logging.Logger;
 
-
-/**
- * Interceptor zum Tracing von public-Methoden der CDI-faehigen Beans und der Session Beans.
- * Sowohl der Methodenaufruf als auch der Rueckgabewert (nicht: Exception) werden mit
- * Level DEBUG protokolliert.
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
 @Interceptor
 @Log
 @Dependent    // FIXME https://issues.jboss.org/browse/WELD-1540
