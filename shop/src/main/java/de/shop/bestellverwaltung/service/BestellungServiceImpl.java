@@ -205,6 +205,25 @@ public class BestellungServiceImpl implements Serializable, BestellungService {
 		return bestellung;
 	}
 	
+	/*
+	 * Einen vorhandene Bestellung aktualisieren
+	 * #
+	 * 
+	 * 
+	 */
+	@Override
+	public Bestellung updateBestellung(Bestellung bestellung) {
+		if (bestellung == null) {
+			return null;
+		}
+		
+		// bestellung vom EntityManager trennen, weil anschliessend z.B. nach Id gesucht wird
+		em.detach(bestellung);
+		
+		em.merge(bestellung);
+		return bestellung;
+	}
+	
 	/**
 	 * {inheritDoc}
 	 */

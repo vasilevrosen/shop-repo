@@ -15,7 +15,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -24,6 +23,7 @@ import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -50,6 +50,8 @@ import de.shop.util.rest.UriHelper;
 @Transactional
 @Log
 public class BestellungResource {
+
+	//private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	@Context
 	private UriInfo uriInfo;
 	
@@ -113,7 +115,7 @@ public class BestellungResource {
 		final Link add = Link.fromUri(uriHelper.getUri(BestellungResource.class, uriInfo))
                              .rel(ADD_LINK)
                              .build();
-		return new Link[] { self, add };
+		return new Link[] {self, add};
 	}
 
 	public URI getUriBestellung(Bestellung bestellung, UriInfo uriInfo) {
@@ -143,7 +145,6 @@ public class BestellungResource {
 			       .build();
 	}
 
-	
 	/**
 	 * Mit der URL /bestellungen/{id}/kunde den Kunden einer Bestellung ermitteln
 	 * @param id ID der Bestellung
@@ -249,6 +250,24 @@ public class BestellungResource {
 		final URI bestellungUri = getUriBestellung(bestellung, uriInfo);
 		return Response.created(bestellungUri).build();
 	}
+	
+	@PUT
+	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
+	@Produces
+	public void updateBestellung(@Valid Bestellung bestellung) {
+		// Vorhandenen Bestellungen ermitteln
+		final Bestellung origBestellung = bs.findBestellungById(bestellung.getId(), NUR_BESTELLUNG);
+		
+		//LOGGER.tracef("Die Bestellung vorher: %s", origBestellung);
+	
+		// Daten des vorhandene Bestellung ueberschreiben
+		origBestellung.setValues(bestellung);
+		//LOGGER.tracef("Die Bestellung nachher: %s", origBestellung);
+		
+		// Update durchfuehren
+		bs.updateBestellung(origBestellung);
+	}
+	
 	
 	/**
 	 * @NotNull verletzen, um die entsprechende Meldung zu verursachen, weil keine einzige Artikel-ID

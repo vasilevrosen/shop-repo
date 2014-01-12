@@ -118,6 +118,13 @@ public class Bestellung extends AbstractAuditable {
 		super();
 	}
 	
+	public void setValues(Bestellung b) {
+		id  = b.id;
+		kundeUri = b.kundeUri;
+		bestellpositionen = b.bestellpositionen;
+		
+	}
+	
 	public Bestellung(Set<Bestellposition> bestellpositionen) {
 		super();
 		this.bestellpositionen = bestellpositionen;
