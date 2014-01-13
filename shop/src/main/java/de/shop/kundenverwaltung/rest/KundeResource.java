@@ -186,9 +186,7 @@ public class KundeResource {
 			for (AbstractKunde k : kunden) {
 				setStructuralLinks(k, uriInfo);
 			}
-			// FIXME JDK 8 hat Lambda-Ausdruecke
-			//kunden.parallelStream()
-			//      .forEach(k -> setStructuralLinks(k, uriInfo));
+			
 			entity = new GenericEntity<List<? extends AbstractKunde>>(kunden) { };
 			links = getTransitionalLinksKunden(kunden, uriInfo);
 		}
@@ -260,9 +258,6 @@ public class KundeResource {
 			for (Bestellung bestellung : bestellungen) {
 				bestellungResource.setStructuralLinks(bestellung, uriInfo);
 			}
-			// FIXME JDK 8 hat Lambda-Ausdruecke
-			//bestellungen.parallelStream()
-			//            .forEach(b -> bestellungResource.setStructuralLinks(b, uriInfo));
 		}
 		
 		final Response response = Response.ok(new GenericEntity<List<Bestellung>>(bestellungen) { })
@@ -311,10 +306,6 @@ public class KundeResource {
 		for (Bestellung bestellung : bestellungen) {
 			bestellungenIds.add(bestellung.getId());
 		}
-		// FIXME JDK 8 hat Lambda-Ausdruecke
-		//bestellungen.parallelStream()
-		//            .map(Bestellung::getId)
-		//            .forEach(id -> bestellungenIds.add(id));
 		
 		return Response.ok(new GenericEntity<Collection<Long>>(bestellungenIds) { })
 				       .build();
@@ -400,5 +391,6 @@ public class KundeResource {
 	public void deleteKunde(@PathParam("id") Long kundeId) {
 		final AbstractKunde kunde = ks.findKundeById(kundeId, FetchType.NUR_KUNDE);
 		ks.deleteKunde(kunde);
+		LOGGER.infof("Der Kunde wurde geloescht: %s", kunde);
 	}
 }

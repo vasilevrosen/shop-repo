@@ -15,7 +15,7 @@ import org.jboss.logging.Logger;
 
 @Interceptor
 @Log
-@Dependent    // FIXME https://issues.jboss.org/browse/WELD-1540
+@Dependent
 public class LogInterceptor implements Serializable {
 	private static final long serialVersionUID = 6225006198548883927L;
 	
