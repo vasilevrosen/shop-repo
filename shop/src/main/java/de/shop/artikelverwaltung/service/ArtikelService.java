@@ -1,6 +1,7 @@
 package de.shop.artikelverwaltung.service;
 
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
@@ -17,19 +18,19 @@ import javax.persistence.criteria.Root;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.jboss.logging.Logger;
+
 import com.google.common.base.Strings;
 
 import de.shop.artikelverwaltung.domain.Artikel;
-import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.bestellverwaltung.service.NeueBestellung;
-import de.shop.kundenverwaltung.domain.AbstractKunde;
-import de.shop.kundenverwaltung.service.KundeService;
 import de.shop.util.interceptor.Log;
 
 @Dependent
 @Log
 public class ArtikelService implements Serializable {
 	private static final long serialVersionUID = 3076865030092242363L;
+	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	
 	@Inject
 	private transient EntityManager em;
@@ -141,11 +142,13 @@ public class ArtikelService implements Serializable {
 			return null;
 		}
 		
-		LOGGER.
 		final Long id = (long)(300+artikel.getBezeichnung().length());
-
 		artikel.setId(id);
-		
+		artikel.setAusgesondert(false);
+		artikel.setBezeichnung("Artikel_"+id);
+		final BigDecimal p = new BigDecimal(id);
+		artikel.setPreis(p);
+
 		if (artikel.getId() != null) {
 			em.merge(artikel);
 		} else {
@@ -156,5 +159,22 @@ public class ArtikelService implements Serializable {
 		
 		return artikel;	
 		
+	}
+	
+	public Artikel updateArtikel(Artikel artikel) throws Exception {
+		if (artikel == null)
+			throw new Exception();
+		
+		LOGGER.debugf("Artikel wurde veraendert: ", artikel);
+		
+		if (artikel.getId() != null) {
+			em.merge(artikel);
+		} else {
+			em.persist(artikel);
+		}
+		em.flush();			
+		event.fire(artikel);
+		
+		return artikel;
 	}
 }
