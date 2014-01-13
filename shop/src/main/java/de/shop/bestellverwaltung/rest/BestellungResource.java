@@ -23,7 +23,6 @@ import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -50,8 +49,7 @@ import de.shop.util.rest.UriHelper;
 @Transactional
 @Log
 public class BestellungResource {
-
-	//private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
+	// Injection von Bean Klassen
 	@Context
 	private UriInfo uriInfo;
 	
@@ -131,13 +129,6 @@ public class BestellungResource {
 	@GET
 	@Path("{id:[1-9][0-9]*}/lieferungen")
 	public Response findLieferungenByBestellungId(@PathParam("id") Long id) {
-		// Diese Methode ist bewusst NICHT implementiert, um zu zeigen,
-		// wie man Methodensignaturen an der Schnittstelle fuer andere
-		// Teammitglieder schon mal bereitstellt, indem einfach ein "Internal
-		// Server Error (500)" produziert wird.
-		// Die Kolleg/inn/en koennen nun weiterarbeiten, waehrend man selbst
-		// gerade keine Zeit hat, weil andere Aufgaben Vorrang haben.
-		
 		// TODO findLieferungenByBestellungId noch nicht implementiert
 		return Response.status(INTERNAL_SERVER_ERROR)
 			       .entity("findLieferungenByBestellungId: NOT YET IMPLEMENTED")
@@ -234,14 +225,6 @@ public class BestellungResource {
 					break;					
 				}
 			}
-			// FIXME JDK 8 hat Lambda-Ausdruecke
-			//final Artikel artikel = gefundeneArtikel.stream()
-			//                                        .filter(a -> a.getId() == artikelId)
-			//                                        .findAny();
-			//if (artikel != null) {
-			//	bp.setArtikel(artikel);
-			//	neueBestellpositionen.add(bp);				
-			//}
 		}
 		bestellung.setBestellpositionen(neueBestellpositionen);
 		
@@ -251,22 +234,23 @@ public class BestellungResource {
 		return Response.created(bestellungUri).build();
 	}
 	
-	@PUT
-	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
-	@Produces
-	public void updateBestellung(@Valid Bestellung bestellung) {
-		// Vorhandenen Bestellungen ermitteln
-		final Bestellung origBestellung = bs.findBestellungById(bestellung.getId(), NUR_BESTELLUNG);
-		
-		//LOGGER.tracef("Die Bestellung vorher: %s", origBestellung);
-	
-		// Daten des vorhandene Bestellung ueberschreiben
-		origBestellung.setValues(bestellung);
-		//LOGGER.tracef("Die Bestellung nachher: %s", origBestellung);
-		
-		// Update durchfuehren
-		bs.updateBestellung(origBestellung);
-	}
+// Die Methode ist nicht nötig
+//	@PUT
+//	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
+//	@Produces
+//	public void updateBestellung(@Valid Bestellung bestellung) {
+//		// Vorhandenen Bestellungen ermitteln
+//		final Bestellung origBestellung = bs.findBestellungById(bestellung.getId(), NUR_BESTELLUNG);
+//		
+//		//LOGGER.tracef("Die Bestellung vorher: %s", origBestellung);
+//	
+//		// Daten des vorhandene Bestellung ueberschreiben
+//		origBestellung.setValues(bestellung);
+//		//LOGGER.tracef("Die Bestellung nachher: %s", origBestellung);
+//		
+//		// Update durchfuehren
+//		bs.updateBestellung(origBestellung);
+//	}
 	
 	
 	/**
