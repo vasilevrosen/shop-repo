@@ -359,10 +359,10 @@ public class KundeResource {
 		if (adresse != null) {
 			adresse.setKunde(kunde);
 		}
-		
-		kunde = ks.createKunde(kunde);
 		LOGGER.tracef("Kunde: %s", kunde);
-		
+		LOGGER.infof("Neuer Kunde wurde erzeugt: %s", kunde);
+		kunde = ks.createKunde(kunde);
+				
 		return Response.created(getUriKunde(kunde, uriInfo))
 				       .build();
 	}
@@ -379,10 +379,11 @@ public class KundeResource {
 		// Vorhandenen Kunden ermitteln
 		final AbstractKunde origKunde = ks.findKundeById(kunde.getId(), FetchType.NUR_KUNDE);
 		LOGGER.tracef("Kunde vorher: %s", origKunde);
-	
+		
 		// Daten des vorhandenen Kunden ueberschreiben
 		origKunde.setValues(kunde);
 		LOGGER.tracef("Kunde nachher: %s", origKunde);
+		LOGGER.infof("Der Kunde wurde veraendert: %s", origKunde);
 		
 		// Update durchfuehren
 		ks.updateKunde(origKunde);

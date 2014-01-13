@@ -18,10 +18,7 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-
 import org.jboss.logging.Logger;
-
-import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.util.persistence.AbstractAuditable;
 
 @XmlRootElement

@@ -9,12 +9,14 @@ import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 import static javax.ws.rs.core.MediaType.TEXT_XML;
 import static javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR;
 
+import java.lang.invoke.MethodHandles;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -30,6 +32,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+
+import org.jboss.logging.Logger;
 
 import de.shop.artikelverwaltung.domain.Artikel;
 import de.shop.artikelverwaltung.rest.ArtikelResource;
@@ -49,6 +53,7 @@ import de.shop.util.rest.UriHelper;
 @Transactional
 @Log
 public class BestellungResource {
+	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	// Injection von Bean Klassen
 	@Context
 	private UriInfo uriInfo;
@@ -229,6 +234,8 @@ public class BestellungResource {
 		bestellung.setBestellpositionen(neueBestellpositionen);
 		
 		bestellung = bs.createBestellung(bestellung, kundeId);
+		
+		LOGGER.infof("Neue Bestellung: %s", bestellung);
 
 		final URI bestellungUri = getUriBestellung(bestellung, uriInfo);
 		return Response.created(bestellungUri).build();

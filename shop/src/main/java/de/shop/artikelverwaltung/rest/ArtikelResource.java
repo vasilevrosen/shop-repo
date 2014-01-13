@@ -3,6 +3,7 @@ package de.shop.artikelverwaltung.rest;
 import static de.shop.util.Constants.SELF_LINK;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
+import static javax.ws.rs.core.MediaType.TEXT_HTML;
 import static javax.ws.rs.core.MediaType.TEXT_XML;
 
 import java.lang.invoke.MethodHandles;
@@ -28,8 +29,6 @@ import org.jboss.logging.Logger;
 
 import de.shop.artikelverwaltung.domain.Artikel;
 import de.shop.artikelverwaltung.service.ArtikelService;
-import de.shop.kundenverwaltung.domain.AbstractKunde;
-import de.shop.kundenverwaltung.service.KundeService.FetchType;
 import de.shop.util.interceptor.*;
 import de.shop.util.rest.UriHelper;
 
@@ -62,10 +61,12 @@ public class ArtikelResource {
 	}
 	
 	@POST
-	@Path("{id:[1-9][0-9]*}")
+	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML})
+	@Produces({ APPLICATION_JSON, APPLICATION_XML, TEXT_HTML })
 	public Response createArtikel(@Valid Artikel artikel) {
 		final Artikel tempArtikel = as.createArtikel(artikel);
 		LOGGER.tracef("Neuer Artikel: ", tempArtikel);
+		LOGGER.infof("Neuer Artikel: %s", tempArtikel);
 		return Response.ok(tempArtikel)
                        .links(getTransitionalLinks(tempArtikel, uriInfo))
                        .build();
@@ -84,8 +85,8 @@ public class ArtikelResource {
 	}
 	
 	@PUT
-	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
-	@Produces
+	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML})
+	@Produces({ APPLICATION_JSON, APPLICATION_XML, TEXT_HTML })
 	public void updateArtikel(@Valid Artikel artikel) throws Exception {
 		// Vorhandenen Artikel ermitteln
 		final Artikel tmpArtikel = as.findArtikelById(artikel.getId());
@@ -93,7 +94,9 @@ public class ArtikelResource {
 	
 		// Daten des vorhandenen Artikel ueberschreiben
 		tmpArtikel.setValues(artikel);
+		
 		LOGGER.tracef("Artikel nachher: %s", tmpArtikel);
+		LOGGER.infof("Artikel wurde veraendert: %s", tmpArtikel);
 		
 		// Update durchfuehren
 		as.updateArtikel(tmpArtikel);
