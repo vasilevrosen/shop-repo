@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.enterprise.context.Dependent;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -19,6 +20,10 @@ import javax.validation.constraints.Size;
 import com.google.common.base.Strings;
 
 import de.shop.artikelverwaltung.domain.Artikel;
+import de.shop.bestellverwaltung.domain.Bestellung;
+import de.shop.bestellverwaltung.service.NeueBestellung;
+import de.shop.kundenverwaltung.domain.AbstractKunde;
+import de.shop.kundenverwaltung.service.KundeService;
 import de.shop.util.interceptor.Log;
 
 @Dependent
@@ -28,6 +33,10 @@ public class ArtikelService implements Serializable {
 	
 	@Inject
 	private transient EntityManager em;
+	
+	@Inject
+	@NeueBestellung
+	private transient Event<Artikel> event;
 	
 	/**
 	 * Suche nach verfuegbaren Artikeln.
@@ -125,5 +134,27 @@ public class ArtikelService implements Serializable {
 		return em.createNamedQuery(Artikel.FIND_ARTIKEL_MAX_PREIS, Artikel.class)
 				 .setParameter(Artikel.PARAM_PREIS, preis)
 				 .getResultList();
+	}
+	
+	public Artikel createArtikel(Artikel artikel) {
+		if (artikel == null) {
+			return null;
+		}
+		
+		LOGGER.
+		final Long id = (long)(300+artikel.getBezeichnung().length());
+
+		artikel.setId(id);
+		
+		if (artikel.getId() != null) {
+			em.merge(artikel);
+		} else {
+			em.persist(artikel);
+		}
+		em.flush();			
+		event.fire(artikel);
+		
+		return artikel;	
+		
 	}
 }

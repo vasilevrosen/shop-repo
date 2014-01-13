@@ -10,8 +10,10 @@ import java.net.URI;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -48,6 +50,15 @@ public class ArtikelResource {
 		final Artikel artikel = as.findArtikelById(id);
 		return Response.ok(artikel)
                        .links(getTransitionalLinks(artikel, uriInfo))
+                       .build();
+	}
+	
+	@POST
+	@Path("{id:[1-9][0-9]*}")
+	public Response createArtikelById(@Valid Artikel artikel) {
+		final Artikel tempArtikel = as.createArtikel(artikel);
+		return Response.ok(tempArtikel)
+                       .links(getTransitionalLinks(tempArtikel, uriInfo))
                        .build();
 	}
 	
