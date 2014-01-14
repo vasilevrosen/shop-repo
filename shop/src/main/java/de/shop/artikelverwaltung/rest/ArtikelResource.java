@@ -62,7 +62,7 @@ public class ArtikelResource {
 	
 	@POST
 	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML})
-	@Produces({ APPLICATION_JSON, APPLICATION_XML, TEXT_HTML })
+	@Produces({ APPLICATION_JSON })
 	public Response createArtikel(@Valid Artikel artikel) {
 		final Artikel tempArtikel = as.createArtikel(artikel);
 		LOGGER.tracef("Neuer Artikel: ", tempArtikel);
@@ -86,7 +86,7 @@ public class ArtikelResource {
 	
 	@PUT
 	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML})
-	@Produces({ APPLICATION_JSON, APPLICATION_XML, TEXT_HTML })
+	@Produces({ APPLICATION_JSON })
 	public void updateArtikel(@Valid Artikel artikel) throws Exception {
 		// Vorhandenen Artikel ermitteln
 		final Artikel tmpArtikel = as.findArtikelById(artikel.getId());

@@ -66,7 +66,7 @@ public class ArtikelService implements Serializable {
 	 * @return Liste der gefundenen Artikel
 	 * @exception ConstraintViolationException zu @Size, falls die Liste leer ist
 	 */
-	@Size(min = 1, message = "{artikel.notFound.ids}")
+	@Size(min = 1, message = "{artikel.notFound.id}")
 	public List<Artikel> findArtikelByIds(List<Long> ids) {
 		if (ids == null || ids.isEmpty()) {
 			return Collections.emptyList();
@@ -142,12 +142,12 @@ public class ArtikelService implements Serializable {
 			return null;
 		}
 		
-		final Long id = (long)(300+artikel.getBezeichnung().length());
-		artikel.setId(id);
-		artikel.setAusgesondert(false);
-		artikel.setBezeichnung("Artikel_"+id);
-		final BigDecimal p = new BigDecimal(id);
-		artikel.setPreis(p);
+//		final Long id = (long)(300+artikel.getBezeichnung().length());
+//		artikel.setId(id);
+//		artikel.setAusgesondert(false);
+//		artikel.setBezeichnung("Artikel_"+id);
+//		final BigDecimal p = new BigDecimal(id);
+//		artikel.setPreis(p);
 
 		if (artikel.getId() != null) {
 			em.merge(artikel);
