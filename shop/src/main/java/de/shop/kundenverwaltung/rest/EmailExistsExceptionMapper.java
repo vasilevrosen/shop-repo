@@ -1,7 +1,7 @@
 package de.shop.kundenverwaltung.rest;
 
 import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
-import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
+import static javax.ws.rs.core.Response.Status.OK;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -28,7 +28,7 @@ public class EmailExistsExceptionMapper implements ExceptionMapper<EmailExistsEx
 	@Override
 	public Response toResponse(EmailExistsException e) {
 		final String msg = messages.getMessage(headers, e.getMessageKey(), e.getEmail());
-		return Response.status(BAD_REQUEST)
+		return Response.status(OK)
 		               .type(TEXT_PLAIN)
 		               .entity(msg)
 		               .build();

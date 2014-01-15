@@ -3,7 +3,6 @@ package de.shop.artikelverwaltung.rest;
 import static de.shop.util.Constants.SELF_LINK;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
-import static javax.ws.rs.core.MediaType.TEXT_HTML;
 import static javax.ws.rs.core.MediaType.TEXT_XML;
 
 import java.lang.invoke.MethodHandles;
@@ -29,7 +28,7 @@ import org.jboss.logging.Logger;
 
 import de.shop.artikelverwaltung.domain.Artikel;
 import de.shop.artikelverwaltung.service.ArtikelService;
-import de.shop.util.interceptor.*;
+import de.shop.util.interceptor.Log;
 import de.shop.util.rest.UriHelper;
 
 @Path("/artikel")

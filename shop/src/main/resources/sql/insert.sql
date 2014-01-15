@@ -43,7 +43,7 @@ INSERT INTO wartungsvertrag (nr, datum, inhalt, kunde_fk, idx, erzeugt, aktualis
 --
 -- artikel
 --
-INSERT INTO artikel (id, bezeichnung, preis, ausgesondert, erzeugt, aktualisiert) VALUES (300,'Treckingrad ''Red Bull''',1001,0,'01.08.2006 00:00:00','01.08.2006 00:00:00');
+INSERT INTO artikel (id, bezeichnung, preis, ausgesondert, erzeugt, aktualisiert) VALUES (300,'Trekkingrad ''Red Bull''',1001,0,'01.08.2006 00:00:00','01.08.2006 00:00:00');
 INSERT INTO artikel (id, bezeichnung, preis, ausgesondert, erzeugt, aktualisiert) VALUES (301,'Rennrad ''SchnellerAdler''',10000,0,'02.08.2006 00:00:00','02.08.2006 00:00:00');
 INSERT INTO artikel (id, bezeichnung, preis, ausgesondert, erzeugt, aktualisiert) VALUES (302,'Pumpe ''10bar''',30,0,'03.08.2006 00:00:00','03.08.2006 00:00:00');
 INSERT INTO artikel (id, bezeichnung, preis, ausgesondert, erzeugt, aktualisiert) VALUES (303,'Reifen ''Michelin 29''',150,0,'04.08.2006 00:00:00','04.08.2006 00:00:00');

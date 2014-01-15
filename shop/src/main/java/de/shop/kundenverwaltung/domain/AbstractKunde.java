@@ -72,10 +72,7 @@ import de.shop.util.persistence.AbstractAuditable;
 	@Type(value = Privatkunde.class, name = AbstractKunde.PRIVATKUNDE),
 	@Type(value = Firmenkunde.class, name = AbstractKunde.FIRMENKUNDE)
 })
-// Alternativen bei @Inheritance
-//   strategy=SINGLE_TABLE (=default), TABLE_PER_CLASS, JOINED
-// Alternativen bei @DiscriminatorColumn
-//   discriminatorType=STRING (=default), CHAR, INTEGER
+
 @Entity
 //Zu email wird unten ein UNIQUE Index definiert
 @Table(name = "kunde", indexes = @Index(columnList = "nachname"))
